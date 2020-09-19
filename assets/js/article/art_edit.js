@@ -12,10 +12,9 @@ $(function () {
     preview: ".img-preview",
   };
  
-
-  //       // 3. 初始化裁剪区域 把当前封面地址进行替换
+  // 3. 初始化裁剪区域 把当前封面地址进行替换
  
-    //获取
+    //根据id获取对应的文章
     $.get('/my/article/' + id, function (res) {
       if (res.status !== 0) {
         return '获取id信息失败'
@@ -23,15 +22,14 @@ $(function () {
       //  把旧数据进行表单填充
       form.val("art_edit", res.data);
        // 把当前所属的分类传进去，进行默认选中的判断
-      initCate(res.data.cate_id);
+ initCate(res.data.cate_id);
       console.log(res);
       $image
       .cropper("destroy") // 销毁旧的裁剪区域
       .attr("src", "http://ajax.frontend.itheima.net" + res.data.cover_img) // 重新设置图片路径
       .cropper(options); // 重新初始化裁剪区域
     })
-
-  //   // 定义加载文章分类的方法
+ //   // 定义加载文章分类的方法
   function initCate(currentCateId = "") {
     $.ajax({
       method: "GET",
@@ -89,9 +87,9 @@ $(function () {
     var fd = new FormData($(this)[0]);
     console.log($("textarea").val());
 
-    fd.forEach(function (k, v) {
-      console.log(k + "===" + v);
-    });
+    // fd.forEach(function (k, v) {
+    //   console.log(k + "===" + v);
+    // });
     // 把当前文章的Id加入到fd中
     fd.append("Id", id);
     // 3. 将文章的发布状态，存到 fd 中
